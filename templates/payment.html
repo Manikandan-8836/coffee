@@ -51,11 +51,13 @@
 <script>
     let paymentOpened = false;
 
-    function pay(app) {
-        paymentOpened = true;
-        const url = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR`;
-        window.location.href = url;
-    }
+   function pay(app) {
+    paymentOpened = true;
+    let tr = "CFFE" + "{{ amount }}" + Math.floor(Math.random() * 100000); // Unique reference
+    const url = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR&tn=Coffee%20Order&tr=${tr}`;
+    window.location.href = url;
+}
+
 
     // Detect when user returns from UPI app
     document.addEventListener("visibilitychange", function () {
@@ -67,3 +69,4 @@
 
 </body>
 </html>
+
