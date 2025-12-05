@@ -14,7 +14,7 @@ UPI_ID = "manikandan85670@oksbi"
 # ------------------- MYSQL CONFIG -------------------
 db_config = {
     "host": "shuttle.proxy.rlwy.net",
-    "port": 34741,
+    "port":3306,
     "user": "root",
     "password": "aulnZoGAOFaYSUaDovPEuYizHZhbFUNK",
     "database": "railway"
@@ -152,4 +152,5 @@ def admin_logout():
 
 if __name__ == "__main__":
     app.run()
+
 
