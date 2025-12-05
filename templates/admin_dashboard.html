@@ -1,42 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <title>{{ project_name }} - Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Orders Received</h1>
-<a href="{{ url_for('admin_download') }}">
-  <button>⬇ Download Excel</button>
-</a>
+<div class="page-wrapper">
+    <div class="card">
+        <div class="logo-wrapper">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
+            <div class="app-title">BERHT ROBOTICS</div>
+        </div>
 
-<a href="{{ url_for('admin_logout') }}">Logout</a><br><br>
+        <div class="admin-header">
+            <div class="admin-title">Admin Dashboard</div>
+            <div class="admin-actions">
+                <a href="{{ url_for('admin_download') }}" style="text-decoration:none;">
+                    <button type="button" class="btn btn-secondary">⬇ Download Excel</button>
+                </a>
+                <a href="{{ url_for('admin_logout') }}" style="text-decoration:none;">
+                    <button type="button" class="btn btn-danger">Logout</button>
+                </a>
+            </div>
+        </div>
 
-{% if records %}
-<table border="1" cellpadding="5">
-<tr>
-  <th>Timestamp</th>
-  <th>Name</th>
-  <th>Phone</th>
-  <th>Work</th>
-  <th>Location</th>
-  <th>Cups</th>
-  <th>Amount</th>
-</tr>
-{% for r in records %}
-<tr>
-  <td>{{ r.Timestamp }}</td>
-  <td>{{ r.Name }}</td>
-  <td>{{ r.Phone }}</td>
-  <td>{{ r.Work }}</td>
-  <td>{{ r.Location }}</td>
-  <td>{{ r.Cups }}</td>
-  <td>{{ r.Amount }}</td>
-</tr>
-{% endfor %}
-</table>
-{% else %}
-<p>No records yet.</p>
-{% endif %}
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Work / College</th>
+                    <th>Location</th>
+                    <th>Cups</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if tables %}
+                    {% for row in tables %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.timestamp }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.phone }}</td>
+                        <td>{{ row.work }}</td>
+                        <td>{{ row.location }}</td>
+                        <td>{{ row.cups }}</td>
+                        <td>₹{{ row.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="8">No records yet.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
-
