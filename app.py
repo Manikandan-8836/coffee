@@ -3,6 +3,8 @@ from datetime import datetime
 import mysql.connector
 import pandas as pd
 import io
+import os
+
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # change before going live
@@ -151,6 +153,8 @@ def admin_logout():
 
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
+
 
 
