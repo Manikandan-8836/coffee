@@ -11,14 +11,13 @@ ADMIN_USERNAME = "Manikandan"
 ADMIN_PASSWORD = "Mani@2002"
 PROJECT_NAME = "Coffee portal"
 UPI_ID = "manikandan85670@oksbi"
-
 # ------------------- MYSQL CONFIG -------------------
 db_config = {
-    "host": "YOUR_HOST",
-    "port": YOUR_PORT,
-    "user": "YOUR_USER",
-    "password": "YOUR_PASSWORD",
-    "database": "YOUR_DATABASE"
+    "host": "shuttle.proxy.rlwy.net",
+    "port": 34741,
+    "user": "root",
+    "password": "aulnZoGAOFaYSUaDovPEuYizHZhbFUNK",
+    "database": "railway"
 }
 
 # Create table automatically if not exists
@@ -153,3 +152,4 @@ def admin_logout():
 
 if __name__ == "__main__":
     app.run()
+
