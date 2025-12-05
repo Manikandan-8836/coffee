@@ -1,0 +1,276 @@
+/* Global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #ffe0b2 0, #3e2723 60%);
+    color: #3e2723;
+}
+
+/* Layout */
+.page-wrapper {
+    width: 100%;
+    max-width: 480px;
+    margin: 24px;
+}
+
+.card {
+    background: #fff7e9;
+    border-radius: 20px;
+    padding: 24px 22px 26px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Logo + Title */
+.logo-wrapper {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: #fff;
+    padding: 6px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.app-title {
+    margin-top: 8px;
+    font-family: "Pacifico", "Segoe Script", system-ui, sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: #5d4037;
+}
+
+/* Section heading */
+.section-title {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 12px;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4e342e;
+    display: block;
+    margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d7ccc8;
+    background: #fffaf4;
+    font-size: 0.95rem;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #8d6e63;
+    box-shadow: 0 0 0 2px rgba(141, 110, 99, 0.3);
+}
+
+/* Buttons */
+.btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #8d6e63, #5d4037);
+    color: #fffaf4;
+    box-shadow: 0 8px 18px rgba(93, 64, 55, 0.45);
+    flex: 1;
+}
+
+.btn-secondary {
+    background: #d7ccc8;
+    color: #3e2723;
+}
+
+.btn-danger {
+    background: #c62828;
+    color: #fffaf4;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+    filter: brightness(1.05);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Little helper text */
+.helper-text {
+    font-size: 0.8rem;
+    color: #6d4c41;
+    margin-top: 4px;
+}
+
+/* Error message */
+.error {
+    background: #ffebee;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    color: #b71c1c;
+    margin-bottom: 10px;
+}
+
+/* Payment box */
+.payment-amount {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4e342e;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.payment-upi {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.qr-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Success page */
+.success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid #2e7d32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    color: #2e7d32;
+    font-size: 32px;
+    animation: pop 0.5s ease-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.4); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.success-text {
+    text-align: center;
+    font-size: 1rem;
+    color: #3e2723;
+}
+
+/* Admin header */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.admin-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4e342e;
+}
+
+/* Admin buttons row */
+.admin-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Table */
+.table-container {
+    max-height: 420px;
+    overflow-x: auto;
+    overflow-y: auto;
+    border-radius: 14px;
+    border: 1px solid #d7ccc8;
+    background: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+th, td {
+    padding: 8px 10px;
+    text-align: left;
+}
+
+th {
+    background: #6d4c41;
+    color: #fff7e9;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+tr:nth-child(even) {
+    background: #fff3e0;
+}
+
+tr:nth-child(odd) {
+    background: #fffaf4;
+}
+
+/* Small devices */
+@media (max-width: 480px) {
+    .card {
+        padding: 20px 16px 22px;
+    }
+
+    .app-title {
+        font-size: 1.3rem;
+    }
+
+    th, td {
+        padding: 6px 8px;
+    }
+}
