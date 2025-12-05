@@ -1,17 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>{{ project_name }} - Payment</title>
+    <meta charset="UTF-8">
+    <title>{{ project_name }} - Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Payment</h1>
-<p>Amount to pay: ₹{{ amount }}</p>
-<p>UPI ID: <strong>{{ upi_id }}</strong></p>
+<div class="page-wrapper">
+    <div class="card">
+        <div class="logo-wrapper">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
+            <div class="app-title">BERHT ROBOTICS</div>
+        </div>
 
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR">
+        <div class="section-title">UPI Payment</div>
 
-<form method="post">
-<button type="submit">I have paid</button>
-</form>
+        <div class="payment-amount">Amount: ₹{{ amount }}</div>
+        <div class="payment-upi">
+            Pay to UPI ID:<br>
+            <strong>{{ upi_id }}</strong>
+        </div>
+
+        <div class="qr-wrapper">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR"
+                 alt="UPI QR Code">
+        </div>
+
+        <div class="helper-text" style="text-align:center;">
+            Scan the QR with any UPI app (GPay / PhonePe / Paytm). After payment, tap the button below.
+        </div>
+
+        <form method="post">
+            <div class="btn-row">
+                <button type="submit" class="btn btn-primary">I have paid</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
