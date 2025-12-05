@@ -1,34 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>{{ project_name }} - Payment</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="page-wrapper">
     <div class="card">
+
         <div class="logo-wrapper">
             <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
             <div class="app-title">BERHT ROBOTICS</div>
         </div>
 
-        <div class="section-title">UPI Payment</div>
-
+        <div class="section-title">Complete Payment</div>
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
-        <div class="payment-upi">
-            Pay to UPI ID:<br>
-            <strong>{{ upi_id }}</strong>
-        </div>
+
+        <div id="upi-buttons" style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;"></div>
+
+        <script>
+            const upiLink = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR`;
+
+            const apps = [
+                { name: "Google Pay", url: "gpay://upi/pay", icon: "📱", deep: upiLink },
+                { name: "PhonePe", url: "phonepe://upi/pay", icon: "📱", deep: upiLink },
+                { name: "Paytm", url: "paytmmp://upi/pay", icon: "📱", deep: upiLink }
+            ];
+
+            function appExists(app, callback) {
+                let timeout;
+                const iframe = document.createElement("iframe");
+                iframe.style.display = "none";
+                iframe.src = app.url;
+                document.body.appendChild(iframe);
+                timeout = setTimeout(() => callback(false), 900);
+                window.addEventListener("blur", () => {
+                    clearTimeout(timeout);
+                    callback(true);
+                }, { once: true });
+            }
+
+            const container = document.getElementById("upi-buttons");
+            apps.forEach(app => {
+                appExists(app, exists => {
+                    if (exists) {
+                        const btn = document.createElement("button");
+                        btn.className = "btn btn-primary";
+                        btn.style.width = "100%";
+                        btn.innerText = `${app.icon} Pay with ${app.name}`;
+                        btn.onclick = () => window.location.href = app.deep;
+                        container.appendChild(btn);
+                    }
+                });
+            });
+
+            setTimeout(() => {
+                if (container.children.length === 0) {
+                    container.innerHTML = `<p style="text-align:center;color:#6d4c41;">No UPI app detected. Scan QR below.</p>`;
+                }
+            }, 1200);
+        </script>
 
         <div class="qr-wrapper">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR"
-                 alt="UPI QR Code">
-        </div>
-
-        <div class="helper-text" style="text-align:center;">
-            Scan the QR with any UPI app (GPay / PhonePe / Paytm). After payment, tap the button below.
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR" alt="QR">
         </div>
 
         <form method="post">
