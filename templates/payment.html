@@ -6,52 +6,40 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #paid-btn-section { display: none; } /* Hide initially */
+    </style>
 </head>
 
 <body>
 <div class="page-wrapper">
     <div class="card">
-
-        <!-- Logo -->
         <div class="logo-wrapper">
             <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
             <div class="app-title">BERHT ROBOTICS</div>
         </div>
 
         <div class="section-title">Complete Payment</div>
-
-        <!-- Amount -->
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
         <div class="section-title" style="margin-bottom:6px;">Choose UPI App</div>
 
-        <!-- UPI Buttons -->
         <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
-            <a href="upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR">
-                <button type="button" class="btn btn-primary" style="width:100%;">📱 Pay with Google Pay</button>
-            </a>
-
-            <a href="upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR">
-                <button type="button" class="btn btn-primary" style="width:100%;">📱 Pay with PhonePe</button>
-            </a>
-
-            <a href="upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR">
-                <button type="button" class="btn btn-primary" style="width:100%;">📱 Pay with Paytm</button>
-            </a>
+            <button onclick="pay('gpay')" class="btn btn-primary">📱Pay with Pay app</button>
+            
         </div>
 
         <div class="helper-text" style="text-align:center;">
             If app doesn’t open automatically, scan the QR below.
         </div>
 
-        <!-- QR Code -->
         <div class="qr-wrapper">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR"
                  alt="UPI QR Code">
         </div>
 
-        <!-- Submit -->
-        <form method="post">
+        <!-- SHOW AFTER RETURN -->
+        <form method="post" id="paid-btn-section">
             <div class="btn-row" style="margin-top:18px;">
                 <button type="submit" class="btn btn-primary">I have paid</button>
             </div>
@@ -59,5 +47,23 @@
 
     </div>
 </div>
+
+<script>
+    let paymentOpened = false;
+
+    function pay(app) {
+        paymentOpened = true;
+        const url = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR`;
+        window.location.href = url;
+    }
+
+    // Detect when user returns from UPI app
+    document.addEventListener("visibilitychange", function () {
+        if (!document.hidden && paymentOpened) {
+            document.getElementById("paid-btn-section").style.display = "block";
+        }
+    });
+</script>
+
 </body>
 </html>
