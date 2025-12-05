@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Success</title>
+    <meta charset="UTF-8">
+    <title>{{ project_name }} - Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Thank You!</h1>
-<p>Your order has been submitted.</p>
+<div class="page-wrapper">
+    <div class="card">
+        <div class="logo-wrapper">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
+            <div class="app-title">BERHT ROBOTICS</div>
+        </div>
+
+        <div class="section-title">Thank you!</div>
+
+        <div class="success-icon">✔</div>
+        <p class="success-text">
+            Your coffee order has been recorded successfully.<br>
+            You can close this page now.
+        </p>
+
+        <div class="btn-row" style="margin-top:14px; justify-content:center;">
+            <a href="{{ url_for('form') }}" style="text-decoration:none;">
+                <button type="button" class="btn btn-secondary">New order</button>
+            </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
