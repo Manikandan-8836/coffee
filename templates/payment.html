@@ -51,12 +51,17 @@
 <script>
     let paymentOpened = false;
 
-   function pay(app) {
+function pay(app) {
     paymentOpened = true;
-    let tr = "CFFE" + "{{ amount }}" + Math.floor(Math.random() * 100000); // Unique reference
+
+    // Unique transaction reference ID
+    let tr = "TXN" + "{{ amount }}" + Math.floor(Math.random() * 1000000);
+
     const url = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR&tn=Coffee%20Order&tr=${tr}`;
+
     window.location.href = url;
 }
+
 
 
     // Detect when user returns from UPI app
@@ -69,4 +74,5 @@
 
 </body>
 </html>
+
 
