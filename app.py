@@ -15,10 +15,10 @@ PROJECT_NAME = "Coffee portal"
 UPI_ID = "manikandan85670@oksbi"
 # ------------------- MYSQL CONFIG -------------------
 db_config = {
-    "host": "shuttle.proxy.rlwy.net",
-    "port":3306,
+    "host": "trolley.proxy.rlwy.net",
+    "port":23600,
     "user": "root",
-    "password": "aulnZoGAOFaYSUaDovPEuYizHZhbFUNK",
+    "password": "uvcydDbCijWoeZvzaBwJObiVhAiAgoMj",
     "database": "railway"
 }
 
@@ -155,6 +155,7 @@ def admin_logout():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
