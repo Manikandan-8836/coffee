@@ -1,31 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>{{ project_name }}</title>
+    <meta charset="UTF-8">
+    <title>{{ project_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Handwritten font for title -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>{{ project_name }}</h1>
-<form method="post">
-<label>Name:</label><br>
-<input type="text" name="name" required><br><br>
+<div class="page-wrapper">
+    <div class="card">
+        <div class="logo-wrapper">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
+            <div class="app-title">BERHT ROBOTICS</div>
+        </div>
 
-<label>Phone Number:</label><br>
-<input type="text" name="phone" required><br><br>
+        <div class="section-title">Coffee Order</div>
 
-<label>Work / College:</label><br>
-<input type="text" name="work" required><br><br>
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
 
-<label>Location:</label><br>
-<input type="text" name="location" required><br><br>
+        <form method="post">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" required placeholder="Enter your name">
+            </div>
 
-<label>Select Coffee:</label><br>
-<select name="cups" required>
-  <option value="1">1 cup (₹5)</option>
-  <option value="2">2 cups (₹10)</option>
-  <option value="3">3 cups (₹15)</option>
-</select><br><br>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" required placeholder="10-digit mobile number">
+            </div>
 
-<button type="submit">Next</button>
-</form>
+            <div class="form-group">
+                <label>Work / College detail</label>
+                <input type="text" name="work" required placeholder="Company or College name">
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" required placeholder="Block / Floor / Desk / Area">
+            </div>
+
+            <div class="form-group">
+                <label>Select Coffee</label>
+                <select name="cups" required>
+                    <option value="" disabled selected>Choose your coffee count</option>
+                    <option value="1">1 cup - ₹5</option>
+                    <option value="2">2 cups - ₹10</option>
+                    <option value="3">3 cups - ₹15</option>
+                </select>
+                <div class="helper-text">Price is calculated automatically based on cups.</div>
+            </div>
+
+            <div class="btn-row">
+                <button type="submit" class="btn btn-primary">Next → Payment</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
