@@ -5,6 +5,9 @@
 </head>
 <body>
 <h1>Orders Received</h1>
+<a href="{{ url_for('admin_download') }}">
+  <button>⬇ Download Excel</button>
+</a>
 
 <a href="{{ url_for('admin_logout') }}">Logout</a><br><br>
 
@@ -36,3 +39,4 @@
 {% endif %}
 </body>
 </html>
+
