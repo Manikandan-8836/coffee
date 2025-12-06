@@ -19,21 +19,23 @@
         <div class="section-title">Complete Payment</div>
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
+        <div class="helper-text" style="text-align:center; margin-bottom:12px;">
+            Step 1: Copy the UPI ID
+        </div>
+
         <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID: {{ upi_id }}</button>
 
         <div class="helper-text" style="text-align:center; margin:12px 0;">
-            After copying UPI ID, choose your UPI app below
+            Step 2: Select your payment app
         </div>
 
-        <button class="btn btn-primary" onclick="openGPay()">📱 Open Google Pay</button>
-        <button class="btn btn-primary" onclick="openPhonePe()">📱 Open PhonePe</button>
-        <button class="btn btn-primary" onclick="openPaytm()">📱 Open Paytm</button>
+        <button class="btn btn-primary" onclick="openUPI()">📱 Select UPI App</button>
 
-        <div class="helper-text" style="text-align:center; margin-top:16px;">
-            In the selected UPI app:<br>
-            ➤ Paste UPI ID<br>
+        <div class="helper-text" style="text-align:center; margin-top:18px;">
+            After the UPI app opens:<br>
+            ➤ Paste the UPI ID<br>
             ➤ Enter ₹{{ amount }}<br>
-            ➤ Pay & return here
+            ➤ Pay and return here
         </div>
 
         <form method="post">
@@ -48,19 +50,11 @@
 <script>
 function copyUPI() {
     navigator.clipboard.writeText("{{ upi_id }}");
-    alert("UPI ID copied.\nOpen your UPI app → paste UPI ID → pay.");
+    alert("UPI ID copied.\nOpen your UPI app → paste UPI ID → enter amount → pay.");
 }
 
-function openGPay() {
-    window.location.href = "gpay://upi/pay/";
-}
-
-function openPhonePe() {
-    window.location.href = "phonepe://pay";
-}
-
-function openPaytm() {
-    window.location.href = "paytmmp://pay";
+function openUPI() {
+    window.location.href = "upi://pay"; // Shows UPI app chooser every time
 }
 </script>
 
