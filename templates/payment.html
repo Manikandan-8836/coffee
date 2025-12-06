@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>{{ project_name }} - Payment</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         #paid-btn-section { display: none; }
@@ -14,6 +13,8 @@
 <body>
 <div class="page-wrapper">
     <div class="card">
+
+        <!-- Logo -->
         <div class="logo-wrapper">
             <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
             <div class="app-title">BERHT ROBOTICS</div>
@@ -22,46 +23,55 @@
         <div class="section-title">Complete Payment</div>
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
-        <div class="section-title" style="margin-bottom:6px;">Open your UPI App</div>
+        <div class="section-title" style="margin-bottom:6px;">Payment Options</div>
 
+        <!-- Copy ID + Open app buttons -->
         <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
-            <button onclick="openApp('gpay')" class="btn btn-primary">📱 Open Google Pay</button>
-            <button onclick="openApp('phonepe')" class="btn btn-primary">📱 Open PhonePe</button>
-            <button onclick="openApp('paytm')" class="btn btn-primary">📱 Open Paytm</button>
+            <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID</button>
+            <button class="btn btn-primary" onclick="openUPI()">📱 Open Google Pay / PhonePe / Paytm</button>
         </div>
 
         <div class="helper-text" style="text-align:center; margin-bottom:8px;">
-            After the app opens, click <b>"Scan QR"</b> inside the app and scan the QR below.
+            After opening the UPI app, it will automatically show <b>Pay to Coffee – {{ upi_id }}</b>.<br>
+            Just tap and pay — no need to scan.
         </div>
 
+        <!-- QR - backup only -->
         <div class="qr-wrapper">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR"
                  alt="UPI QR Code">
         </div>
 
         <div class="helper-text" style="text-align:center; margin-top:6px;">
-            If the payment did not open automatically, scan this QR manually using any UPI app.
+            If the suggestion doesn't appear, you can scan this QR inside the UPI app manually.
         </div>
 
+        <!-- I have paid button (visible after reopening browser) -->
         <form method="post" id="paid-btn-section">
             <div class="btn-row" style="margin-top:18px;">
                 <button type="submit" class="btn btn-primary">I have paid</button>
             </div>
         </form>
+
     </div>
 </div>
 
 <script>
-    let upiOpened = false;
+    let appOpened = false;
 
-    function openApp(app) {
-        upiOpened = true;
+    function copyUPI() {
+        navigator.clipboard.writeText("{{ upi_id }}");
+        alert("UPI ID copied.\nNow tap 'Open UPI App' to pay.");
+    }
+
+    function openUPI() {
+        appOpened = true;
         const url = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR`;
         window.location.href = url;
     }
 
-    document.addEventListener("visibilitychange", function () {
-        if (!document.hidden && upiOpened) {
+    document.addEventListener("visibilitychange", function() {
+        if (!document.hidden && appOpened) {
             document.getElementById("paid-btn-section").style.display = "block";
         }
     });
