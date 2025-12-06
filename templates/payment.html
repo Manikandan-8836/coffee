@@ -5,47 +5,36 @@
     <title>{{ project_name }} - Payment</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        #paid-btn-section { display: none; }
-    </style>
 </head>
 
 <body>
 <div class="page-wrapper">
     <div class="card">
 
-        <!-- Logo -->
         <div class="logo-wrapper">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo">
             <div class="app-title">BERHT ROBOTICS</div>
         </div>
 
         <div class="section-title">Complete Payment</div>
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
-        <!-- Instructions -->
-        <div class="helper-text" style="text-align:center; margin-bottom:10px;">
-            Step 1: Tap the button below to copy the UPI ID
+        <div class="helper-text" style="text-align:center; margin-bottom:12px;">
+            Tap below to copy the UPI ID
         </div>
 
         <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID: {{ upi_id }}</button>
 
-        <div class="helper-text" style="text-align:center; margin:12px 0;">
-            Step 2: Tap the button below to open your UPI app
-        </div>
-
-        <button class="btn btn-primary" onclick="openUPI()">📱 Open UPI App</button>
-
-        <div class="helper-text" style="text-align:center; margin-top:18px;">
-            After the UPI app opens:<br>
-            ➤ Paste the copied UPI ID<br>
-            ➤ Pay ₹{{ amount }}<br>
-            ➤ Return to this page
+        <div class="helper-text" style="text-align:center; margin:14px 0;">
+            After copying UPI ID:<br>
+            1️⃣ Open your UPI app (Google Pay / PhonePe / Paytm)<br>
+            2️⃣ Paste UPI ID in search<br>
+            3️⃣ Pay ₹{{ amount }}
         </div>
 
         <!-- I have paid -->
-        <form method="post" id="paid-btn-section">
-            <div class="btn-row" style="margin-top:20px;">
+        <form method="post">
+            <div class="btn-row" style="margin-top:18px;">
                 <button type="submit" class="btn btn-primary">I have paid</button>
             </div>
         </form>
@@ -54,25 +43,10 @@
 </div>
 
 <script>
-    let openedApp = false;
-
-    function copyUPI() {
-        navigator.clipboard.writeText("{{ upi_id }}");
-        alert("UPI ID copied.\nOpen your UPI app → paste the UPI ID → pay the amount.");
-    }
-
-    function openUPI() {
-        openedApp = true;
-        // Opens Google Pay / PhonePe / Paytm / Amazon Pay / any UPI app
-        window.location.href = "intent://pay/#Intent;scheme=upi;end;";
-    }
-
-    // Show "I have paid" when user returns from UPI app
-    document.addEventListener("visibilitychange", function () {
-        if (!document.hidden && openedApp) {
-            document.getElementById("paid-btn-section").style.display = "block";
-        }
-    });
+function copyUPI() {
+    navigator.clipboard.writeText("{{ upi_id }}");
+    alert("UPI ID copied.\nOpen your UPI app → paste the UPI ID → pay the amount.");
+}
 </script>
 
 </body>
