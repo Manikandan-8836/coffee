@@ -14,39 +14,30 @@
 <div class="page-wrapper">
     <div class="card">
 
-        <!-- Logo -->
         <div class="logo-wrapper">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo">
             <div class="app-title">BERHT ROBOTICS</div>
         </div>
 
         <div class="section-title">Complete Payment</div>
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
-        <div class="section-title" style="margin-bottom:6px;">Payment Options</div>
-
-        <!-- Copy ID + Open app buttons -->
-        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
-            <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID</button>
-            <button class="btn btn-primary" onclick="openUPI()">📱 Open Google Pay / PhonePe / Paytm</button>
+        <div class="helper-text" style="text-align:center; margin-bottom:12px;">
+            Step 1: Copy the UPI ID below
         </div>
 
-        <div class="helper-text" style="text-align:center; margin-bottom:8px;">
-            After opening the UPI app, it will automatically show <b>Pay to Coffee – {{ upi_id }}</b>.<br>
-            Just tap and pay — no need to scan.
+        <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID: {{ upi_id }}</button>
+
+        <div class="helper-text" style="text-align:center; margin:12px 0;">
+            Step 2: Open your payment app and paste the UPI ID
         </div>
 
-        <!-- QR - backup only -->
-        <div class="qr-wrapper">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR"
-                 alt="UPI QR Code">
+        <button class="btn btn-primary" onclick="openUPI()">📱 Open GPay / PhonePe / Paytm</button>
+
+        <div class="helper-text" style="text-align:center; margin-top:18px;">
+            After payment is completed, return to this page and press the button below.
         </div>
 
-        <div class="helper-text" style="text-align:center; margin-top:6px;">
-            If the suggestion doesn't appear, you can scan this QR inside the UPI app manually.
-        </div>
-
-        <!-- I have paid button (visible after reopening browser) -->
         <form method="post" id="paid-btn-section">
             <div class="btn-row" style="margin-top:18px;">
                 <button type="submit" class="btn btn-primary">I have paid</button>
@@ -57,21 +48,20 @@
 </div>
 
 <script>
-    let appOpened = false;
+    let openedApp = false;
 
     function copyUPI() {
         navigator.clipboard.writeText("{{ upi_id }}");
-        alert("UPI ID copied.\nNow tap 'Open UPI App' to pay.");
+        alert("UPI ID copied.\nPaste it inside your UPI app to pay.");
     }
 
     function openUPI() {
-        appOpened = true;
-        const url = `upi://pay?pa={{ upi_id }}&pn=Coffee&am={{ amount }}&cu=INR`;
-        window.location.href = url;
+        openedApp = true;
+        window.location.href = "upi://"; // Opens UPI apps selector (GPay / PhonePe / Paytm)
     }
 
-    document.addEventListener("visibilitychange", function() {
-        if (!document.hidden && appOpened) {
+    document.addEventListener("visibilitychange", function () {
+        if (!document.hidden && openedApp) {
             document.getElementById("paid-btn-section").style.display = "block";
         }
     });
