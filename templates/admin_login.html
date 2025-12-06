@@ -2,52 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ project_name }} - Payment</title>
+    <title>{{ project_name }} - Admin Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 <div class="page-wrapper">
     <div class="card">
 
         <div class="logo-wrapper">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
             <div class="app-title">BERHT ROBOTICS</div>
         </div>
 
-        <div class="section-title">Complete Payment</div>
-        <div class="payment-amount">Amount: ₹{{ amount }}</div>
+        <div class="section-title">Admin Login</div>
 
-        <div class="helper-text" style="text-align:center; margin-bottom:12px;">
-            Tap below to copy the UPI ID
-        </div>
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
 
-        <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID: {{ upi_id }}</button>
+        <form method="POST">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter admin username" required>
+            </div>
 
-        <div class="helper-text" style="text-align:center; margin:14px 0;">
-            After copying UPI ID:<br>
-            1️⃣ Open your UPI app (Google Pay / PhonePe / Paytm)<br>
-            2️⃣ Paste UPI ID in search<br>
-            3️⃣ Pay ₹{{ amount }}
-        </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter admin password" required>
+            </div>
 
-        <!-- I have paid -->
-        <form method="post">
-            <div class="btn-row" style="margin-top:18px;">
-                <button type="submit" class="btn btn-primary">I have paid</button>
+            <div class="btn-row">
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
 
+        <div style="margin-top:10px; text-align:center;">
+            <a href="{{ url_for('form') }}" style="text-decoration:none; font-size:0.85rem; color:#5d4037;">
+                ← Back to coffee order page
+            </a>
+        </div>
+
     </div>
 </div>
-
-<script>
-function copyUPI() {
-    navigator.clipboard.writeText("{{ upi_id }}");
-    alert("UPI ID copied.\nOpen your UPI app → paste the UPI ID → pay the amount.");
-}
-</script>
-
 </body>
 </html>
