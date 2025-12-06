@@ -24,8 +24,8 @@
         <div class="helper-text" style="text-align:center; margin:10px 0;">
             After copying UPI ID, tap below to select your payment app
         </div>
+        <button class="btn btn-primary" onclick="chooseApp()">📱 Select UPI App</button>
 
-        <button class="btn btn-primary" onclick="openUPI()">📱 Select UPI App</button>
 
         <div class="helper-text" style="text-align:center; margin-top:18px;">
             In your selected UPI app:<br>
@@ -43,10 +43,33 @@
 </div>
 
 <script>
+<script>
 function copyUPI() {
     navigator.clipboard.writeText("{{ upi_id }}");
-    alert("UPI ID copied.\nNow select your UPI app → paste UPI ID → enter amount → pay.");
+    alert("UPI ID copied!");
 }
+
+function chooseApp() {
+    const apps = [
+        "com.google.android.apps.nbu.paisa.user",   // GPay
+        "com.phonepe.app",                           // PhonePe
+        "net.one97.paytm",                           // Paytm
+        "in.amazon.mShop.android.shopping"           // Amazon Pay
+    ];
+
+    let handled = false;
+    for (let pkg of apps) {
+        window.location.href = "intent://#Intent;package=" + pkg + ";end;";
+        handled = true;
+        break;
+    }
+
+    if (!handled) {
+        alert("No UPI app detected!");
+    }
+}
+</script>
+
 
 function openUPI() {
    
@@ -56,4 +79,5 @@ function openUPI() {
 
 </body>
 </html>
+
 
