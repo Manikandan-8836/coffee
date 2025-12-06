@@ -20,6 +20,11 @@
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
         <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID: {{ upi_id }}</button>
+        <button class="btn btn-primary" onclick="openGPay()">📱 Open Google Pay</button>
+        <button class="btn btn-primary" onclick="openPhonePe()">📱 Open PhonePe</button>
+        <button class="btn btn-primary" onclick="openPaytm()">📱 Open Paytm</button>
+        <button class="btn btn-primary" onclick="openAmazon()">📱 Open Amazon Pay</button>
+
 
         <div class="helper-text" style="text-align:center; margin:10px 0;">
             After copying UPI ID, tap below to select your payment app
@@ -47,6 +52,21 @@ function copyUPI() {
     navigator.clipboard.writeText("{{ upi_id }}");
     alert("UPI ID copied.\nNow select your UPI app → paste UPI ID → enter amount → pay.");
 }
+function openGPay() {
+    window.location.href = "intent://upi/pay/#Intent;package=com.google.android.apps.nbu.paisa.user;scheme=upi;end;";
+}
+
+function openPhonePe() {
+    window.location.href = "intent://upi/pay/#Intent;package=com.phonepe.app;scheme=upi;end;";
+}
+
+function openPaytm() {
+    window.location.href = "intent://upi/pay/#Intent;package=net.one97.paytm;scheme=upi;end;";
+}
+
+function openAmazon() {
+    window.location.href = "intent://upi/pay/#Intent;package=in.amazon.mShop.android.shopping;scheme=upi;end;";
+}
 
 function openUPI() {
     window.location.href =
@@ -56,3 +76,4 @@ function openUPI() {
 
 </body>
 </html>
+
