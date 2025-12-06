@@ -14,33 +14,38 @@
 <div class="page-wrapper">
     <div class="card">
 
+        <!-- Logo -->
         <div class="logo-wrapper">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="Logo">
             <div class="app-title">BERHT ROBOTICS</div>
         </div>
 
         <div class="section-title">Complete Payment</div>
         <div class="payment-amount">Amount: ₹{{ amount }}</div>
 
-        <div class="helper-text" style="text-align:center; margin-bottom:12px;">
-            Step 1: Copy the UPI ID below
+        <!-- Instructions -->
+        <div class="helper-text" style="text-align:center; margin-bottom:10px;">
+            Step 1: Tap the button below to copy the UPI ID
         </div>
 
         <button class="btn btn-secondary" onclick="copyUPI()">🔗 Copy UPI ID: {{ upi_id }}</button>
 
         <div class="helper-text" style="text-align:center; margin:12px 0;">
-            Step 2: Open your payment app and paste the UPI ID
+            Step 2: Tap the button below to open your UPI app
         </div>
 
-       <button class="btn btn-primary" onclick="openUPI()">📱 Open UPI App</button>
-
+        <button class="btn btn-primary" onclick="openUPI()">📱 Open UPI App</button>
 
         <div class="helper-text" style="text-align:center; margin-top:18px;">
-            After payment is completed, return to this page and press the button below.
+            After the UPI app opens:<br>
+            ➤ Paste the copied UPI ID<br>
+            ➤ Pay ₹{{ amount }}<br>
+            ➤ Return to this page
         </div>
 
+        <!-- I have paid -->
         <form method="post" id="paid-btn-section">
-            <div class="btn-row" style="margin-top:18px;">
+            <div class="btn-row" style="margin-top:20px;">
                 <button type="submit" class="btn btn-primary">I have paid</button>
             </div>
         </form>
@@ -53,14 +58,16 @@
 
     function copyUPI() {
         navigator.clipboard.writeText("{{ upi_id }}");
-        alert("UPI ID copied.\nPaste it inside your UPI app to pay.");
+        alert("UPI ID copied.\nOpen your UPI app → paste the UPI ID → pay the amount.");
     }
 
     function openUPI() {
         openedApp = true;
-        window.location.href = "upi://"; // Opens UPI apps selector (GPay / PhonePe / Paytm)
+        // Opens Google Pay / PhonePe / Paytm / Amazon Pay / any UPI app
+        window.location.href = "intent://pay/#Intent;scheme=upi;end;";
     }
 
+    // Show "I have paid" when user returns from UPI app
     document.addEventListener("visibilitychange", function () {
         if (!document.hidden && openedApp) {
             document.getElementById("paid-btn-section").style.display = "block";
@@ -70,4 +77,3 @@
 
 </body>
 </html>
-
